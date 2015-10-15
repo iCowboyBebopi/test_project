@@ -39,4 +39,26 @@ function validate_userData($name,$password)
 	}
 	return $status ? $status : false;
 }
+
+//sent activation email
+function activation_email($email)
+{
+	$headers  = "Content-type: text/html; charset=UTF-8" . "\r\n";
+	$headers .= "From: Fractal-soft <icowboybebopi@gmail.com>\r\n"; 
+	$subject = "Activation email address";
+	$massege = "To activate your email click the linck below. <br>
+				<a href = 'http://localhost:8000/applyEmail/applyEmail.php'>Apply</a>";
+	mail($email, $subject, $massege,$headers);
+}
+
+
+//sent lost_password email
+function lostPass_email($email,$username,$password)
+{
+	$headers  = "Content-type: text/html; charset=UTF-8" . "\r\n";
+	$headers .= "From: Fractal-soft <icowboybebopi@gmail.com>\r\n"; 
+	$subject = "Forgotten password";
+	$massege = "Hello $username. There is your password: $password";
+	mail($email, $subject, $massege,$headers);
+}
 ?>
