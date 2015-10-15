@@ -1,0 +1,28 @@
+body {
+	width: 600px;
+	margin: 0 auto;
+	background: #e6e6e6;
+	border-left: 2 solid red;
+}
+
+.matchData {
+	font-family: italic;
+	color: red;
+	font-size: 10px;
+	float: right;
+}
+
+.labels{
+	width: 100px;
+	float: left;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	padding-bottom: 20px;
+}
