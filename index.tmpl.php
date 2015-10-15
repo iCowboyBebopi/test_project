@@ -1,4 +1,3 @@
-<!--pip--!>
 <!doctype html>
 <html>
 <head>
@@ -7,21 +6,24 @@
 </head>
 <body>
 	<h1>Hello stranger, please enter your Name and Password to continue</h1>
-	<h1><?php 
+	<h1 class="matchDataH"><?php 
 		if (isset($status)){
 			echo $status;
 		} 
+		if (isset($status1)){
+			echo $status1;
+		}
 	?>
 	</h1>
 	<form action="" method="post">
 		<ul>
 			<li>
 				<label for="name" class="labels">Name</label>
-				<input type="text" id ="name" name="name">
+				<input type="text" id ="name" name="name" required>
 			</li>
 			<li>
 				<label for="password" class="labels">Password</label>
-				<input type="password" id="password" name="password">
+				<input type="password" id="password" name="password" required>
 			</li>
 			<li>
 				<input type="submit" value="LogIn">

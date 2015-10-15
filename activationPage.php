@@ -8,6 +8,7 @@ session_start();
 		Activation page
 	</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="reg/style.css">
 	<style>
 		body{
 
