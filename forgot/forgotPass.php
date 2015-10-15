@@ -3,11 +3,14 @@ require '../functions/functions.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
+	//connecting to db
 	$conn = db_connect();
+	//serch matching email 
 	$match = db_get_regInfo("SELECT email,login,password,activation FROM registInfo WHERE email=:email",array('email'=>$_POST['email']),$conn);
 
 	if ($match)
 	{
+		//search for unconfirm email
 		foreach ($match as $key) 
 		{
 			if($key['activation']==NULL)
@@ -21,6 +24,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 				$username = $key['login'];
 				$password = $key['password'];
 			}
+			//sent lost password to email
 			lostPass_email($_POST['email'],$username,$password);
 			$status2 = "We sent a message. Chek your email.";
 		}

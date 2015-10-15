@@ -1,7 +1,9 @@
 <?php
 require '../functions/functions.php';
 session_start();
+//connecting db
 $conn = db_connect();
+//activate user
 db_insert_regInfo("UPDATE registInfo SET activation = 1 WHERE login= :id",array('id'=>$_SESSION['username']),$conn);
 ?>
 <!doctype html>

@@ -2,14 +2,16 @@
 require '../functions/functions.php';
 
 session_start();
-
+//connecting to db
 $conn = db_connect();
 
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
+	//delete spacese
 	$login=trim($_POST['name']);
 	$password=trim($_POST['password']);
 	
+	//looking for matches user data
 	$row = db_get_regInfo("SELECT login,password,activation FROM registInfo WHERE login LIKE :login AND password LIKE :pas",
 							array('login'=>$login, 'pas'=>$password),$conn);
 
