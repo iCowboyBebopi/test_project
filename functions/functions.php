@@ -1,5 +1,40 @@
 <?php
 require '../con/con.php';
+require_once '../vendor/autoload.php';
+
+//set settings to email
+function activate_male()
+{
+	$transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+	  ->setUsername('icowboybebopi@gmail.com')
+	  ->setPassword('nR3say2210s5')
+	  ;
+	$mailer = Swift_Mailer::newInstance($transport);
+	return $mailer;
+}
+
+//sendmail to confirm email
+function ativation_email($email,$hash)
+{
+	$mailer = activate_male();
+	$message = Swift_Message::newInstance('Wonderful Subject')
+  ->setFrom(array('icowboybebopi@gmail.com' => 'Piter inc'))
+  ->setTo(array($email => "New fighter"))
+  ->setBody("Hello stranger, to continue registration clisk the activation linck: http://localhost:8000/applyEmail/applyEmail.php?id=$hash")
+  ;
+  $result = $mailer->send($message);
+} 
+
+function lostpass_email($email, $name, $pass)
+{
+	$mailer = activate_male();
+	$message = Swift_Message::newInstance('Wonderful Subject')
+  ->setFrom(array('icowboybebopi@gmail.com' => 'Piter inc'))
+  ->setTo(array($email => "New fighter"))
+  ->setBody("Hello $name, $here is your password: $pass")
+  ;
+  $result = $mailer->send($message);
+}
 
 // function to conect ouwer database
 function db_connect()
@@ -40,25 +75,3 @@ function validate_userData($name,$password)
 	return $status ? $status : false;
 }
 
-//sent activation email
-function activation_email($email)
-{
-	$headers  = "Content-type: text/html; charset=UTF-8" . "\r\n";
-	$headers .= "From: Fractal-soft <icowboybebopi@gmail.com>\r\n"; 
-	$subject = "Activation email address";
-	$massege = "To activate your email click the linck below. <br>
-				<a href = 'http://localhost:8000/applyEmail/applyEmail.php'>Apply</a>";
-	mail($email, $subject, $massege,$headers);
-}
-
-
-//sent lost_password email
-function lostPass_email($email,$username,$password)
-{
-	$headers  = "Content-type: text/html; charset=UTF-8" . "\r\n";
-	$headers .= "From: Fractal-soft <icowboybebopi@gmail.com>\r\n"; 
-	$subject = "Forgotten password";
-	$massege = "Hello $username. There is your password: $password";
-	mail($email, $subject, $massege,$headers);
-}
-?>

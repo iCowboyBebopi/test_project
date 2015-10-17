@@ -6,6 +6,10 @@ $conn = db_connect();
 // chek sent data or not
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+//make unique activation code
+$hash = substr(md5(time()),0,8);
+
+
 // do only when ol input have value
 if (!empty($_POST['login']) && !empty($_POST['password']) && !empty($_POST['email'])){
 //search data in db
@@ -31,13 +35,18 @@ if($row2){
 //if not same value than writ into the database
 if (!isset($status1) && !isset($status2) && !isset($status2_1))
 {
-    $row = db_insert_regInfo("INSERT INTO registInfo(login,password,email,date) VALUES(:login,:password,:email,NOW())",
+    $row = db_insert_regInfo("INSERT INTO registInfo(login,password,email,date,activationcode) VALUES(:login,:password,:email,NOW(),'$hash')",
                             array('login'=>$_POST['login'],
                                   'password'=>$_POST['password'],
                                   'email'=>$_POST['email']),
                                    $conn);
+    //geting activation code into variable 
+    $code = db_get_regInfo("SELECT activationcode FROM registInfo WHERE login=:login",array('login'=>$_POST['login']),$conn);
+    foreach ($code as $key) {
+      $hash = $key['activationcode'];
+    }
     $_SESSION['username'] = $_POST['login'];
-    activation_email($_POST['email']);
+    ativation_email($_POST['email'],$hash);
     header('location:../activationPage.php');
 }
 }
